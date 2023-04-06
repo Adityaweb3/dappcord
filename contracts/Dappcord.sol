@@ -35,6 +35,10 @@ contract Dappcord is ERC721 {
 
     }
 
+    function getChannel(uint256 _id) public view returns(Channel memory){
+        return channels[_id];
+    }
+
 
 
 
