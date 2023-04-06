@@ -6,8 +6,12 @@ const tokens = (n) => {
 }
 
 describe("Dappcord", function () {
+ 
+  const NAME = "Dappcord"
+  const SYMBOL = "DC"
 
   let dappcord
+  let deployer , user 
 
   
   describe("Deployment", function () {
@@ -17,10 +21,10 @@ describe("Dappcord", function () {
       // Deploy the contract
       
       const Dappcord = await ethers.getContractFactory("Dappcord"),
-      dappcord = await Dappcord.deploy('Dappcord', 'DC')
+      dappcord = await Dappcord.deploy(NAME, SYMBOL)
       //fetch and check name
       let result = await dappcord.name()
-      expect(result).to.equal("Dappcord")
+      expect(result).to.equal(NAME)
 
       //Fetch and check  symbol 
       
@@ -31,13 +35,30 @@ describe("Dappcord", function () {
 
 
       const Dappcord = await ethers.getContractFactory("Dappcord"),
-      dappcord = await Dappcord.deploy('Dappcord', 'DC')
+      dappcord = await Dappcord.deploy(NAME, SYMBOL)
 
       
 
       //Fetch and check  symbol 
      let result = await dappcord.symbol()
-      expect(result).to.equal("DC")
+      expect(result).to.equal(SYMBOL)
+    })
+
+    it("Sets the owner", async() => {
+
+
+     [deployer , user] = await ethers.getSigners();
+
+
+
+      const Dappcord = await ethers.getContractFactory("Dappcord"),
+      dappcord = await Dappcord.deploy(NAME, SYMBOL)
+
+      
+
+      //Fetch and check  symbol 
+     const result = await dappcord.owner()
+      expect(result).to.equal(deployer.address)
     })
 
 
